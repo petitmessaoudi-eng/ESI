@@ -51,35 +51,35 @@ const toastEl      = $('toast');
 const MODES = {
   translate: {
     label: 'Code Python',
-    placeholder: '# Collez votre code Python ici…\n\ndef ma_fonction(n):\n    for i in range(n):\n        print(i)',
+    placeholder: '# Collez votre code Python ici…\n\ndef ma_fonction(n):\n    for i in range(1, n+1):\n        print(i)',
     btn: "Générer l'Algorithme",
-    desc: '⚡ Traduit votre code Python en algorithme officiel bac tunisien avec TDO, TDNT et analyse.',
-    badge: 'Algorithme généré · Normes officielles Bac Tunisien',
-    steps: ['Analyse du code…','Identification des modules…','Construction des tableaux TDO…','Rédaction de l\'algorithme…'],
+    desc: '⚡ Traduit votre code Python en algorithme officiel bac tunisien (Procédure/Fonction, DEBUT/FIN, @, TDNT, TDO) + implémentation Python numpy.',
+    badge: 'Algorithme généré · Normes officielles Bac Tunisien 2024/2025',
+    steps: ['Analyse du code Python…','Identification des modules…','Construction TDNT / TDO…','Rédaction algorithme + Python…'],
   },
   solve: {
     label: 'Énoncé du Problème',
-    placeholder: 'Décrivez votre problème algorithmique ici…\n\nExemple : Écrire un programme modulaire permettant de gérer N employés…',
+    placeholder: 'Décrivez votre problème algorithmique ici…\n\nExemple : Écrire un programme modulaire permettant de gérer N citoyens…',
     btn: 'Résoudre le Problème',
-    desc: '🧩 Résout un problème algorithmique avec analyse complète, TDNT, TDOG et algorithmes numérotés.',
+    desc: '🧩 Résout un problème algorithmique : algorithme complet (Procédure/Fonction, DEBUT/FIN) + implémentation Python numpy.',
     badge: 'Solution générée · Normes officielles Bac Tunisien',
-    steps: ['Analyse du problème…','Décomposition en modules…','Construction des tableaux…','Rédaction des algorithmes…'],
+    steps: ['Analyse du problème…','Décomposition en modules…','Construction TDNT / TDO…','Rédaction algo + Python…'],
   },
   exam: {
     label: 'Texte de l\'Examen',
-    placeholder: 'Collez ici le texte complet de votre examen bac tunisien…\n\nPartie I — Exercices théoriques\nExercice 1 : ...\n\nPartie II — Algorithmique\n...',
+    placeholder: 'Collez ici le texte complet de votre examen bac tunisien…\n\nExercice 1 : Validité des appels...\nExercice 2 : Trace d\'algorithme...\nProblème : ...',
     btn: 'Résoudre l\'Examen',
-    desc: '📄 Résout un examen complet : Partie I (Pascal, types, tracé, SQL…) et Partie II (algorithmique modulaire).',
+    desc: '📄 Résout un examen complet : validité des appels (@), trace/simulation, rôle des modules, Aléa(vi,vf), algo + Python numpy.',
     badge: 'Examen résolu · Normes officielles Bac Tunisien',
     steps: ['Lecture de l\'examen…','Résolution Partie I…','Résolution Partie II…','Vérification des normes…'],
   },
   trace: {
-    label: 'Algorithme ou Programme à Tracer',
-    placeholder: 'Collez ici l\'algorithme ou le programme Pascal à simuler…\n\nIndiquez les valeurs d\'entrée si nécessaire.',
+    label: 'Algorithme ou Fonction à Tracer',
+    placeholder: 'Collez ici l\'algorithme à simuler…\n\nExemple :\nFonction f1(T : Tab ; n, x : Entier) : Entier\nDEBUT\n  Cpt <- 0\n  Pour i de 1 à n Faire\n    Si T[i] = x Alors Cpt <- Cpt+1 FinSi\n  Fin Pour\n  Retourner Cpt\nFIN\n\nT=[5,6,3,3,2,8,6,2,6,3], n=10, x=6',
     btn: 'Effectuer le Tracé',
-    desc: '📊 Effectue une trace/simulation manuelle avec tableau d\'évolution des variables étape par étape.',
+    desc: '📊 Trace manuelle avec tableau d\'évolution des variables (Cpt, i, M…) à chaque itération. Déduit le rôle du module.',
+    steps: ['Initialisation des variables…','Simulation itération par itération…','Construction du tableau de trace…','Résultat final…'],
     badge: 'Tracé de simulation · Bac Tunisien',
-    steps: ['Initialisation des variables…','Simulation étape par étape…','Construction du tableau…','Résultat final…'],
   },
   sql: {
     label: 'Exercice SQL',
@@ -121,6 +121,7 @@ const MODES = {
 const EXAMPLES = {
   translate: `import math
 import random
+from numpy import array
 
 def est_premier(n):
     if n < 2:
@@ -130,92 +131,97 @@ def est_premier(n):
             return False
     return True
 
-def compter_premiers(tab, n):
+def compter_premiers(T, n):
     cpt = 0
-    for i in range(n):
-        if est_premier(tab[i]):
+    for i in range(1, n+1):
+        if est_premier(T[i-1]):
             cpt += 1
     return cpt
 
-def remplir(tab, n):
-    for i in range(n):
-        tab[i] = random.randint(1, 100)
+def remplir(T, n):
+    for i in range(1, n+1):
+        T[i-1] = random.randint(1, 100)
 
-def afficher(tab, n, nb):
-    for i in range(n):
-        print(tab[i], end=" ")
+def afficher(T, n, nb):
+    for i in range(1, n+1):
+        print(T[i-1], end=" ")
+    print()
     print("Nombre de premiers :", nb)
 
-n = int(input("Taille (5-50) : "))
-while n < 5 or n > 50:
-    n = int(input("Taille invalide : "))
-tab = [0] * n
-remplir(tab, n)
-nb = compter_premiers(tab, n)
-afficher(tab, n, nb)`,
+T = array([int()]*50)
+n = int()
 
-  solve: `Une école souhaite gérer les résultats de ses N élèves (5 ≤ N ≤ 100).
-Chaque élève est identifié par son nom (chaîne) et sa moyenne générale (réel entre 0 et 20).
+while True:
+    n = int(input("Taille (5-50) : "))
+    if 5 <= n <= 50:
+        break
+remplir(T, n)
+nb = compter_premiers(T, n)
+afficher(T, n, nb)`,
 
-Écrire un programme modulaire permettant de :
-1. Saisir les N noms dans un tableau NOM et les N moyennes dans un tableau MOY avec contrôle de saisie.
-2. Calculer et afficher la moyenne générale de la classe.
-3. Afficher le nom et la moyenne du meilleur élève.
-4. Afficher pour chaque élève son nom, sa moyenne et sa mention :
-   - "Très Bien" si moyenne >= 16
-   - "Bien" si 14 <= moyenne < 16
-   - "Assez Bien" si 12 <= moyenne < 14
-   - "Passable" si 10 <= moyenne < 12
-   - "Insuffisant" si moyenne < 10`,
+  solve: `Écrire un programme modulaire permettant de gérer les vaccinations de N citoyens (5 ≤ N ≤ 100).
+Chaque citoyen est représenté par une chaîne de caractères de la forme :
+  "CodeVaccin-NomVaccin-NombreDoses"
+  Exemple : "TN12345678-Pfizer-2"
+
+Le programme doit :
+1. Saisir N avec contrôle (5 ≤ N ≤ 100)
+2. Remplir le tableau T par les informations des N citoyens (avec contrôle de validité)
+3. Afficher pour chaque citoyen :
+   - S'il peut télécharger son passe vaccinal : si 2 doses, ou 1 dose avec vaccin Johnson
+   - Sinon : lui demander de compléter son schéma vaccinal`,
 
   exam: `PARTIE I (8 points)
 
-Exercice 1 (1.5 pts) :
-Soit la fonction Pascal suivante :
-Function Carre(n : integer) : integer;
-Var r : integer;
-  Function Double(x : integer) : integer;
-  Begin Double := x * 2; End;
-Begin
-  r := Double(n) + n;
-  Carre := r;
-End;
+Exercice 1 (3 points) :
+Soient le tableau de déclaration des objets globaux :
+| Objet | Type/Nature |
+|-------|-------------|
+| n     | Entier      |
+| y     | Réel        |
 
-Indiquer si l'objet r est reconnu par la fonction Double (O/N) et justifier.
+et l'en-tête de la procédure : Procédure Traitement (@ x : Réel ; a : Entier)
 
-Exercice 2 (3.5 pts) :
-Dire si les instructions suivantes sont valides ou non (avec justification si invalide) :
-Type jours = (Lun, Mar, Mer, Jeu, Ven, Sam, Dim);
-Var j : jours; n : integer; b : boolean;
+Compléter le tableau (Valide/Invalide + justification pour les invalides) :
+1. Traitement(y, n)
+2. Traitement(y, n, 2)
+3. Traitement(5.5, 6)
+4. Traitement(y, 3)
 
-1. Readln(j);
-2. j := Mer;
-3. Writeln(j);
-4. n := ord(j);
-5. b := j < Sam;
+Exercice 2 (5 points) :
+Soient : Tab = Tableau de 50 Entiers
+Fonction f1(T : Tab ; n, x : Entier) : Entier qui compte les occurrences de x dans T.
+T = [5, 6, 3, 3, 2, 8, 6, 2, 6, 3]  (n=10)
 
-Exercice 3 (3 pts) :
-Tracer l'algorithme suivant pour n=4 :
-0) DEF FN Factorielle(n : Entier) : Entier
-1) Si (n = 0) alors Retourner 1
-   Sinon Retourner n * Factorielle(n-1)
-   FinSi
-2) Fin Factorielle
+a. Donner f1(T, 10, 6) et f1(T, 6, 3).
+b. Déduire le rôle de f1.
+c. Parmi les procédures remplir suivantes, lesquelles remplissent T par des chiffres de 1 à 9 ?
+   - Procédure avec T[i] <- Aléa(1, 9)
+   - Procédure avec T[i] <- Aléa(1, 10)
+   - Procédure avec T[i] <- Aléa(0, 9)
 
-PARTIE II (12 points)
-Écrire un programme modulaire permettant de remplir un tableau T de N entiers (2 ≤ N ≤ 30) saisis dans l'ordre croissant, puis de rechercher si une valeur V donnée existe dans T par recherche dichotomique, et d'afficher le résultat.`,
+PARTIE II (12 points) :
+Écrire un programme modulaire permettant de gérer les résultats de N élèves (5 ≤ N ≤ 50).
+Chaque élève est identifié par son nom (Chaîne) et sa moyenne (Réel entre 0 et 20).
+Le programme doit :
+1. Saisir N avec contrôle (5 ≤ N ≤ 50)
+2. Saisir les noms et moyennes avec contrôle (0 ≤ moyenne ≤ 20)
+3. Afficher le meilleur élève (nom et moyenne maximale)
+4. Afficher la mention de chaque élève (TB≥16, B≥14, AB≥12, P≥10, Insuffisant)`,
 
-  trace: `DEF FN Mystere(n : Entier) : Entier
-  Var r, i : Entier
-0) Début
-1)   r <- 1
-     Pour i de 1 à n faire
-       r <- r * i
-     Fin pour
-2)   Retourner r
-3) Fin Mystere
+  trace: `Fonction f1 (T : Tab ; n, x : Entier) : Entier
+DEBUT
+  Cpt <- 0
+  Pour i de 1 à n Faire
+    Si T[i] = x Alors
+      Cpt <- Cpt + 1
+    FinSi
+  Fin Pour
+  Retourner Cpt
+FIN
 
-Tracer pour n = 5`,
+Tableau T : [5, 6, 3, 3, 2, 8, 6, 2, 6, 3]  (indices 1 à 10)
+Appel : f1(T, 10, 6)`,
 
   sql: `Base de données d'une bibliothèque :
 - LIVRE(id_livre, titre, annee, id_auteur#)
@@ -462,19 +468,23 @@ function renderResult(md) {
     // 3. Assignment arrow
     html = html.replace(/(&lt;-)/g, '<span class="kw-assign">$1</span>');
 
-    // 4. DEF keywords + Retourner
-    html = html.replace(/\b(DEF FN|DEF PROC|Retourner|RETOURNER)\b/g, '<span class="kw-def">$1</span>');
+    // 4. Module keywords + Retourner + ALGORITHME
+    html = html.replace(/\b(Retourner|RETOURNER|ALGORITHME|Algorithme)\b/g, '<span class="kw-def">$1</span>');
 
-    // 5. Control flow + var
-    html = html.replace(/\b(Si|SI|Alors|ALORS|Sinon|SINON|FinSi|FIN SI|Pour|POUR|De|DE|À|Faire|FAIRE|Fin pour|FIN POUR|Tant que|TANT QUE|Fin Tant que|FIN TANT QUE|Répéter|RÉPÉTER|Jusqu|JUSQU|Selon|SELON|FinSelon|Début|Fin|DEBUT|FIN|Proc|var)\b/g,
+    // 5. Control flow — official bac tunisien syntax
+    html = html.replace(/\b(Si|Alors|Sinon|FinSi|Pour|De|À|Faire|Fin\sPour|Tant\sque|Fin\sTant\sque|Répéter|Jusqu|Selon|Fin\sSelon|DEBUT|Début|FIN|Fin|Procédure|Fonction|global)\b/g,
       '<span class="kw-ctrl">$1</span>');
 
-    // 6. Built-in functions
-    html = html.replace(/\b(Lire|Saisir|Ecrire|Aléa|Long|Pos|ConvCh|EstNum|Ord|Chr|Ent|Arrondi|RacineCarré|Sous_cha[iî]ne|Majus|Minus|Efface|Valeur|Insère)\b/g,
+    // 5b. Python control flow
+    html = html.replace(/\b(if|elif|else|for|while|in|range|def|return|True|False|None|and|or|not|import|from|break|global)\b/g,
+      '<span class="kw-ctrl">$1</span>');
+
+    // 6. Built-in functions (algo tunisien + Python)
+    html = html.replace(/\b(Lire|Saisir|Ecrire|Ecrire_nl|Aléa|Long|Pos|ConvCh|EstNum|Ord|Chr|Ent|Arrondi|RacineCarré|Sous_cha[iî]ne|Majus|Minus|Efface|Valeur|print|input|int|float|str|len|round|abs|sqrt|randint|ord|chr|array|open|load|dump|range)\b/g,
       '<span class="kw-fn">$1</span>');
 
-    // 7. Types
-    html = html.replace(/\b(Entier|Réel|Cha[iî]ne|Caract[eè]re|Bool[eé]en|Tab|Tableau|Tabd|Tabr|Vrai|Faux)\b/g,
+    // 7. Types (algo + Python)
+    html = html.replace(/\b(Entier|Réel|Cha[iî]ne|Caract[eè]re|Bool[eé]en|Tab|Tableau|Vrai|Faux|int|float|str|bool|dict|list)\b/g,
       '<span class="kw-type">$1</span>');
 
     // 8. Operators

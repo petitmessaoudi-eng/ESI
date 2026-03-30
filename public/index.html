@@ -201,6 +201,7 @@
     </div>
     <div class="cheat-tabs">
       <button class="cheat-tab active" data-section="algo">Algo</button>
+      <button class="cheat-tab" data-section="python">Python</button>
       <button class="cheat-tab" data-section="sql">SQL</button>
       <button class="cheat-tab" data-section="network">Réseaux</button>
       <button class="cheat-tab" data-section="arch">Archi</button>
@@ -208,52 +209,122 @@
     <div class="cheat-body">
 
       <div class="cheat-section active" id="csec-algo">
-        <div class="csec"><h5>En-têtes Modules</h5>
-          <code>DEF PROC NomP(var T : Tab ; n : Entier)</code>
-          <code>DEF FN NomF(T : Tab ; n : Entier) : Type</code>
+        <div class="csec"><h5>En-têtes Modules (Syntaxe Officielle)</h5>
+          <code>Procédure NomP(@ x : Réel ; n : Entier)</code>
+          <code>Fonction NomF(T : Tab ; n : Entier) : Entier</code>
+          <code>@ = modifié (par référence) · sans @ = lu seulement</code>
         </div>
-        <div class="csec"><h5>Structure Algorithme</h5>
-          <code>0) Début NomProg / DEF PROC NomP(...)</code>
-          <code>1) instruction...</code>
-          <code>N) Fin NomProg / Fin NomModule</code>
+        <div class="csec"><h5>Structure Algorithme (DEBUT/FIN)</h5>
+          <code>ALGORITHME NomProg</code>
+          <code>DEBUT</code>
+          <code>  appel1(...) · appel2(...)</code>
+          <code>FIN</code>
+        </div>
+        <div class="csec"><h5>Structure Module</h5>
+          <code>Procédure NomP(...)</code>
+          <code>DEBUT</code>
+          <code>  instructions...</code>
+          <code>FIN</code>
         </div>
         <div class="csec"><h5>Affectation / E/S</h5>
-          <code>A &lt;- 5 · Tab[i] &lt;- 0</code>
-          <code>Lire(X) · Saisir(X)</code>
-          <code>Ecrire("msg", X)</code>
+          <code>A &lt;- 5 · Tab[i] &lt;- 0  (affectation)</code>
+          <code>Lire(X) · Saisir(X)  (entrée)</code>
+          <code>Ecrire("msg", X)  (sortie)</code>
+          <code>Ecrire_nl("msg")  (avec retour ligne)</code>
         </div>
         <div class="csec"><h5>Structures de Contrôle</h5>
-          <code>Si (cond) alors ... Sinon ... FinSi</code>
-          <code>Pour i de x à y faire ... Fin pour</code>
-          <code>Tant que (cond) faire ... Fin Tant que</code>
-          <code>Répéter ... Jusqu'à (cond)</code>
+          <code>Si Cond Alors ... [Sinon ...] FinSi</code>
+          <code>Sinon Si Cond2 Alors ... FinSi</code>
+          <code>Pour i de 1 à n Faire ... Fin Pour</code>
+          <code>Tant que Cond Faire ... Fin Tant que</code>
+          <code>Répéter ... Jusqu'à Cond</code>
+          <code>Selon sel · Val : ... · [Sinon :] · Fin Selon</code>
         </div>
-        <div class="csec"><h5>Fonctions Chaînes</h5>
-          <code>Long(Ch) · Pos(Ch1, Ch2)</code>
-          <code>Sous_chaîne(Ch, pos, n)</code>
-          <code>ConvCh(Nb) · EstNum(Ch)</code>
-          <code>Majus(Ch) · Minus(Ch)</code>
+        <div class="csec"><h5>Validité des Appels (@)</h5>
+          <code>@ formel → effectif DOIT être une variable</code>
+          <code>sans @ → variable OU constante acceptée</code>
+          <code>Vérifier : nombre, type, ordre, mode (@)</code>
         </div>
-        <div class="csec"><h5>Fonctions Math</h5>
-          <code>Ent(X) · Arrondi(X)</code>
-          <code>RacineCarré(X) · Aléa(Xi, Xf)</code>
-          <code>Ord(X) · Chr(X)</code>
+        <div class="csec"><h5>Fonctions Prédéfinies</h5>
+          <code>Ent(X) · Arrondi(X) · RacineCarré(X)</code>
+          <code>Aléa(vi, vf)  [vi..vf] inclus</code>
+          <code>Ord(c) · Chr(d) · Abs(x)</code>
+          <code>Long(Ch) · Pos(Ch1,Ch2) · ConvCh(Nb)</code>
+          <code>Sous_chaîne(Ch,d,f) · EstNum(Ch)</code>
+          <code>Majus(Ch) · Minus(Ch) · Valeur(Ch)</code>
+        </div>
+        <div class="csec"><h5>Tableaux</h5>
+          <code>T  Tableau de N Entiers  (déclaration)</code>
+          <code>M  Tableau de L lignes × C colonnes Entiers</code>
+          <code>Accès : T[i] · M[i][j]</code>
         </div>
         <div class="csec"><h5>TDNT (1 colonne)</h5>
-          <code>| Type |</code>
+          <code>| Nouveau type |</code>
           <code>| Tab = Tableau de 50 Entiers |</code>
         </div>
-        <div class="csec"><h5>TDO (3 colonnes)</h5>
-          <code>| Nom | Type | Rôle |</code>
-          <code>| n | Entier | Compteur |</code>
+        <div class="csec"><h5>TDO — TDOG / TDOL (2 colonnes)</h5>
+          <code>| Objet | Type/Nature |</code>
+          <code>| n | Entier |  · | T | Tab |</code>
+          <code>| saisir | Procédure |</code>
         </div>
         <div class="csec"><h5>Opérateurs</h5>
-          <code>MOD · DIV · ET · OU · NON</code>
-          <code>= · &lt;&gt; · &gt; · &lt; · &lt;= · &gt;=</code>
+          <code>Mod · Div · Et · Ou · Non</code>
+          <code>= · &lt;&gt; · &gt; · &lt; · &lt;= · &gt;=  (comparaison)</code>
+          <code>&lt;-  (affectation uniquement)</code>
         </div>
         <div class="csec"><h5>Types</h5>
           <code>Entier · Réel · Chaîne · Caractère · Booléen</code>
-          <code>Vrai / Faux</code>
+          <code>Vrai / Faux  (booléens)</code>
+        </div>
+      </div>
+
+      <div class="cheat-section" id="csec-python">
+        <div class="csec"><h5>Correspondances Algo → Python</h5>
+          <code>Lire(x)  →  x = input()</code>
+          <code>Ecrire("msg", x)  →  print("msg", x)</code>
+          <code>x &lt;- expr  →  x = expr</code>
+        </div>
+        <div class="csec"><h5>Conversions de types</h5>
+          <code>n = int(input())  pour un Entier</code>
+          <code>x = float(input())  pour un Réel</code>
+          <code>Entier→int · Réel→float · Booléen→bool</code>
+        </div>
+        <div class="csec"><h5>Tableaux numpy (officiel bac)</h5>
+          <code>from numpy import array</code>
+          <code>T = array([int()]*N)  → N entiers</code>
+          <code>T = array([float()]*N)  → N réels</code>
+          <code>T = array(['']*N, dtype='U20') → N chaînes</code>
+          <code>M = array([[int()]*C]*L)  → 2D</code>
+        </div>
+        <div class="csec"><h5>Boucles Python</h5>
+          <code>Pour i de 1 à n → for i in range(1, n+1):</code>
+          <code>Tant que → while Cond:</code>
+          <code>Répéter/Jusqu'à → while True: ... if Cond: break</code>
+        </div>
+        <div class="csec"><h5>Modules Python</h5>
+          <code>def NomModule(pf1, pf2, ...):</code>
+          <code>    traitement</code>
+          <code>    return résultat  (fonction seulement)</code>
+          <code>Tableaux/dicts → passés par référence auto</code>
+          <code>int/float/str → passés par valeur (utiliser global)</code>
+        </div>
+        <div class="csec"><h5>Variable globale</h5>
+          <code>def saisir():</code>
+          <code>    global n</code>
+          <code>    n = int(input(...))</code>
+        </div>
+        <div class="csec"><h5>Fonctions Python ↔ Algo</h5>
+          <code>int(x)=Ent · round(x)=Arrondi · abs(x)=Abs</code>
+          <code>sqrt(x)=RacineCarré (from math import sqrt)</code>
+          <code>randint(vi,vf)=Aléa (from random import randint)</code>
+          <code>len(ch)=Long · ch2.find(ch1)=Pos(ch1,ch2)</code>
+          <code>ch[d:f]=Sous_chaîne · str(x)=ConvCh</code>
+          <code>ch.isdecimal()=EstNum · ch.upper()=Majus</code>
+          <code>ch.lower()=Minus · int(ch)|float(ch)=Valeur</code>
+        </div>
+        <div class="csec"><h5>Opérateurs Python</h5>
+          <code>// = Div · % = Mod · == = (=) · != = (&lt;&gt;)</code>
+          <code>and = Et · or = Ou · not = Non</code>
         </div>
       </div>
 
